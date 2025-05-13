@@ -6,7 +6,7 @@ on:
       - main
 
 permissions:
-  contents: write    # ✅ 이 줄 꼭 추가!
+  contents: write   # ✅ 이 줄은 반드시 jobs: "위에" 있어야 함!
 
 jobs:
   deploy:
@@ -28,4 +28,9 @@ jobs:
       - name: Build site
         run: bundle exec jekyll build
 
-      - name: Deploy
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: ./_site
